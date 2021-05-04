@@ -11,8 +11,9 @@ import xss from 'xss-clean';
 import rateLimit from 'express-rate-limit';
 import hpp from 'hpp';
 import cors from 'cors';
+import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import { getCurrentDateTimeLocal } from './utils/datetime.js';
-import errorHandler from './middleware/error.js';
+// import errorHandler from './middleware/error.js';
 import connectDB from './config/db.js';
 
 // ES Modules don't have __dirname
@@ -36,7 +37,7 @@ const app = express();
 app.use(cors());
 
 // Route files
-// const bootcamps = require('./routes/bootcamps');
+import productRoutes from './routes/productRoutes.js';
 // const courses = require('./routes/courses');
 // const auth = require('./routes/auth');
 // const users = require('./routes/users');
@@ -86,7 +87,7 @@ app.use(hpp());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Mount routers
-// app.use('/api/v1/bootcamps', bootcamps);
+app.use('/api/v1/products', productRoutes);
 // app.use('/api/v1/courses', courses);
 // app.use('/api/v1/auth', auth);
 // app.use('/api/v1/users', users);
@@ -94,6 +95,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up error handler
 app.use(errorHandler);
+app.use(notFound);
 
 const PORT = process.env.PORT || 5000;
 
