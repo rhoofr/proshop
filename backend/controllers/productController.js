@@ -20,10 +20,6 @@ export const getProduct = asyncHandler(async (req, res, next) => {
   if (!product) {
     res.status(404);
     throw new Error('Product not found');
-
-    // return next(
-    //   new ErrorResponse(`Product not found with id of ${req.params.id}`, 404)
-    // );
   }
 
   res.status(200).json({ success: true, product });

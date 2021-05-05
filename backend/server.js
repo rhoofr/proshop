@@ -38,6 +38,7 @@ app.use(cors());
 
 // Route files
 import productRoutes from './routes/productRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 // const courses = require('./routes/courses');
 // const auth = require('./routes/auth');
 // const users = require('./routes/users');
@@ -88,6 +89,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Mount routers
 app.use('/api/v1/products', productRoutes);
+app.use('/api/v1/users', userRoutes);
 // app.use('/api/v1/courses', courses);
 // app.use('/api/v1/auth', auth);
 // app.use('/api/v1/users', users);
