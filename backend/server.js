@@ -39,10 +39,7 @@ app.use(cors());
 // Route files
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
-// const courses = require('./routes/courses');
-// const auth = require('./routes/auth');
-// const users = require('./routes/users');
-// const reviews = require('./routes/reviews');
+import orderRoutes from './routes/orderRoutes.js';
 
 // Body parser
 app.use(express.json({ limit: '5mb' }));
@@ -90,10 +87,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Mount routers
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/users', userRoutes);
-// app.use('/api/v1/courses', courses);
-// app.use('/api/v1/auth', auth);
-// app.use('/api/v1/users', users);
-// app.use('/api/v1/reviews', reviews);
+app.use('/api/v1/orders', orderRoutes);
 
 // Set up error handler
 app.use(errorHandler);
