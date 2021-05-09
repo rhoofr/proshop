@@ -40,6 +40,7 @@ app.use(cors());
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import uploadRoutes from './routes/uploadRoutes.js';
 
 // Body parser
 app.use(express.json({ limit: '5mb' }));
@@ -88,10 +89,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/orders', orderRoutes);
+app.use('/api/v1/upload', uploadRoutes);
 
 app.get('/api/v1/config/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);
 });
+
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 // Set up error handler
 app.use(errorHandler);
