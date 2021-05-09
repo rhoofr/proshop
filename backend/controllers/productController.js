@@ -30,12 +30,12 @@ const getProducts = asyncHandler(async (req, res, next) => {
 const getProduct = asyncHandler(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
 
-  if (!product) {
+  if (product) {
+    res.json(product);
+  } else {
     res.status(404);
     throw new Error('Product not found');
   }
-
-  res.status(200).json({ success: true, product });
 });
 
 // @desc    Delete a product
