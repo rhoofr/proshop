@@ -84,6 +84,13 @@ app.use(mongoSanitize());
 //   })
 // );
 
+// This disables the `contentSecurityPolicy` middleware but keeps the rest.
+app.use(
+  helmet({
+    contentSecurityPolicy: false
+  })
+);
+
 // Prevent XSS attacks
 app.use(xss());
 
