@@ -1,4 +1,5 @@
 import path from 'path';
+import crypto from 'crypto';
 import express from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
@@ -67,7 +68,21 @@ if (process.env.NODE_ENV === 'development') {
 app.use(mongoSanitize());
 
 // Set security headers
-app.use(helmet());
+// app.use(helmet());
+
+// Sets the `script-src` directive to "'self' 'nonce-e33ccde670f149c1789b1e1e113b0916'" (or similar)
+app.use((req, res, next) => {
+  res.locals.cspNonce = crypto.randomBytes(16).toString('hex');
+  next();
+});
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      scriptSrc: ["'self'", (req, res) => `'nonce-${res.locals.cspNonce}'`]
+    }
+  })
+);
 
 // Prevent XSS attacks
 app.use(xss());
